@@ -89,18 +89,16 @@
     .message-container {
       flex: 1;
       width: 100%;
-      overflow-y: scroll;
+      overflow-y: auto;
+      overflow-x: hidden;
       padding: 10px 5px;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
+      scrollbar-width: none;
       -ms-overflow-style: none;
-      overscroll-behavior-y: contain;
-      max-height: calc(70vh - 200px);
-      scrollbar-color: #ff69b4 #fff5f7;
       position: relative;
+      min-height: 0;
     }
-
-    .message-container::-webkit-scrollbar {
+.message-container::-webkit-scrollbar {
       width: 6px;
     }
 
@@ -125,7 +123,6 @@
       }
     }
 
-    /* Garantir que o container tenha altura fixa */
     .container {
       display: flex;
       flex-direction: column;
@@ -188,7 +185,6 @@
       border-radius: 15px;
     }
 
-    /* SEÇÃO DE PERGUNTA */
     .question-section {
       display: none;
       flex-direction: column;
@@ -277,25 +273,144 @@
       width: 100%;
     }
 
-    /* RESPONSIVIDADE */
+    .maximize-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .maximize-btn:hover {
+      background-color: #ff1493;
+      transform: scale(1.1);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      overflow-y: auto;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .modal-content img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #ff69b4;
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-text {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .modal-text p {
+      margin-bottom: 15px;
+    }
+
+    .close-modal {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #ff69b4;
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .close-modal:hover {
+      color: #ff1493;
+      transform: scale(1.2);
+    }
+
     @media (max-width: 380px) {
       .title {
         font-size: 20px;
       }
-      
+
       .image-container {
         width: 120px;
         height: 120px;
       }
-      
+
       .message {
         font-size: 14px;
       }
-      
+
       .btn {
         padding: 10px 15px;
         font-size: 13px;
         max-width: 100px;
+      }
+
+      .modal-content {
+        padding: 20px;
+      }
+
+      .modal-content img {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 15px;
+      }
+
+      .modal-text {
+        font-size: 15px;
       }
     }
     @media (max-height: 600px) {
@@ -315,6 +430,7 @@
   <div class="container">
     <!-- Slide 1 -->
     <div class="slide active">
+      <button class="maximize-btn" data-slide="1">⛶</button>
       <div class="image-container">
         <img src="1.jpg" alt="Foto da Clarinha">
       </div>
@@ -332,6 +448,7 @@
 
     <!-- Slide 2 -->
     <div class="slide">
+      <button class="maximize-btn" data-slide="2">⛶</button>
       <div class="image-container">
         <img src="2.png" alt="Foto da Clarinha">
       </div>
@@ -347,6 +464,7 @@
 
     <!-- Slide 3 -->
     <div class="slide">
+      <button class="maximize-btn" data-slide="3">⛶</button>
       <div class="image-container">
         <img src="3.png" alt="Foto da Clarinha">
       </div>
@@ -363,6 +481,7 @@
 
     <!-- Slide 4 -->
     <div class="slide">
+      <button class="maximize-btn" data-slide="4">⛶</button>
       <div class="image-container">
         <img src="4.png" alt="Foto da Clarinha">
       </div>
@@ -380,6 +499,7 @@
 
     <!-- Slide 5 -->
     <div class="slide">
+      <button class="maximize-btn" data-slide="5">⛶</button>
       <div class="image-container">
         <img src="5.png" alt="Foto da Clarinha">
       </div>
@@ -398,6 +518,7 @@
 
     <!-- Slide 6 -->
     <div class="slide">
+      <button class="maximize-btn" data-slide="6">⛶</button>
       <div class="image-container">
         <img src="6.jpg" alt="Foto da Clarinha">
       </div>
@@ -415,6 +536,7 @@
 
     <!-- Slide 7 -->
     <div class="slide">
+      <button class="maximize-btn" data-slide="7">⛶</button>
       <div class="image-container">
         <img src="7.png" alt="Foto da Clarinha">
       </div>
@@ -430,6 +552,7 @@
 
     <!-- Slide 8 -->
     <div class="slide">
+      <button class="maximize-btn" data-slide="8">⛶</button>
       <div class="image-container">
         <img src="8.png" alt="Foto da Clarinha">
       </div>
@@ -450,6 +573,15 @@
     <button class="btn" id="questionBtn" style="display: none;">Perguntas</button>
   </div>
 
+  <!-- Modal para visualizar texto completo -->
+  <div class="modal" id="textModal">
+    <div class="modal-content">
+      <button class="close-modal">&times;</button>
+      <img id="modalImage" src="" alt="Foto">
+      <div class="modal-text" id="modalText"></div>
+    </div>
+  </div>
+
   <!-- Seção de Pergunta -->
   <div class="question-section" id="questionSection">
     <div class="question-box">
@@ -457,12 +589,12 @@
       Eu te amo muito, de verdade.<br>
       Seja sincera ao clicar no botão, por favor.<br>
       Te amo muito, minha princesa. ❤️</p>
-      
+
       <div class="response-buttons">
         <button class="response-btn yes" id="yesBtn">Sim</button>
         <button class="response-btn no" id="noBtn">Não</button>
       </div>
-      
+
       <div class="result-message" id="resultMessage"></div>
     </div>
   </div>
@@ -476,46 +608,83 @@
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
     const resultMessage = document.getElementById('resultMessage');
+    const textModal = document.getElementById('textModal');
+    const modalClose = document.querySelector('.close-modal');
+    const modalImage = document.getElementById('modalImage');
+    const modalText = document.getElementById('modalText');
     let currentSlide = 0;
-    
+
+    const slideData = [
+      {
+        img: '1.jpg',
+        text: '<p>Oii 💕</p><p>Eu sei que já fiz vários sites pra você, e esse é apenas mais um, mas eu te amo muito, de verdade. Estou com medo de te perder, então fiz esse site pra mostrar um pouco dos nossos momentos e demonstrar o quanto eu te amo.</p><p>Você lembra desse dia? Nosso primeiro "encontro" foi simplesmente incrível! Eu fiquei muito feliz, foi o dia em que recebi seu primeiro beijo, e meu coração quase saltou do peito. Senti aquele friozinho na barriga… e, resumindo, me apaixonei por você naquele momento.</p><p>Esse dia nunca vai sair da minha memória. Sempre vou lembrar do instante em que senti sua boca pela primeira vez, do abraço que te dei, de cada segundo que passamos juntos.</p><p>Porque eu te amo de verdade. 💞</p>'
+      },
+      {
+        img: '2.png',
+        text: '<p>Cada momento ao seu lado é um alívio para o meu coração. Eu sei que às vezes sou paranoico, sei que às vezes sou chato, e sei que você odeia quando fico com paranoia ou quando começo a me questionar sobre tudo.</p><p>Mas, na verdade, o motivo de eu fazer isso é porque eu me importo muito com você e tenho medo de te perder.</p><p>Cada segundo sem conversar com você, cada segundo sem ouvir sua voz, cada segundo brigado com você… meu coração dói. Meu cérebro não funciona direito, eu não consigo comer, não consigo trabalhar, porque simplesmente eu me importo com você em um nível que você nem imagina. ❤️</p>'
+      },
+      {
+        img: '3.png',
+        text: '<p>Sei que errei em ter falado aquele monte de bobagem, aquele tanto de besteira. Mas, de verdade, nenhuma daquelas palavras era o que eu realmente queria dizer.</p><p>Eu não sou muito bom em demonstrar meus sentimentos, mas o que eu sinto por você é algo de uma intensidade gigantesca. Tenho medo de falar algo errado e acabar te magoando.</p><p>Quando estou com raiva, às vezes falo sem pensar e acabo te ferindo e quando eu te machuco, eu também fico machucado, porque eu te amo.</p><p>Eu sei que esse momento está sendo difícil pra gente, mas poxa… a gente sobreviveu até ao "Alto dos Carneiros", né? kkkkkkkkkk</p>'
+      },
+      {
+        img: '4.png',
+        text: '<p>Você quer saber uma história louca? Vou te contar algo que nunca contei pra ninguém… pra ninguém mesmo.</p><p>Quando eu era criança e morava em Jardim, sempre que dava duas horas da manhã eu ficava olhando as estrelas, sozinho. Eu tinha apenas sete anos de idade, mas mesmo assim sentia que existia algo no espaço que eu não conseguia decifrar algo misterioso, algo que eu não podia tocar, ouvir ou entender.</p><p>Eu me perguntava: por que a gente foi criado? Por que existe o bem e o mal? Por que não podemos fazer certas coisas? Por que existem regras?</p><p>Essas perguntas sempre ficaram na minha cabeça. Um dia, olhando para as estrelas, eu percebi que tudo tem uma lógica, algo que mantém o equilíbrio do mundo. Resumindo: com sete anos, eu descobri que tudo precisa de algo para se equilibrar.</p><p>Meu mundo era bagunçado, girava errado, pesava diferente… eu sabia que estava faltando alguma coisa. E quando eu te conheci, eu percebi o que realmente faltava: uma pessoa que me amasse e que eu pudesse amar de forma intensa. Essa pessoa é você. 💖</p>'
+      },
+      {
+        img: '5.png',
+        text: '<p>Tá… vamos falar sobre um ponto delicado: a traição. Isso me magoou muito, de verdade. Eu não estava conseguindo pensar, comer, nem dormir. Minha imunidade baixou, minha pressão caiu… eu me senti um morto-vivo por um tempo.</p><p>Mas, mesmo assim, eu te amo muito. E acho que você também me ama. Talvez você tenha feito isso porque não estava se sentindo bem comigo, talvez tenha sido por estar enjoada de mim… sinceramente, eu não sei.</p><p>Eu te trato como uma princesa, te dou tudo o que posso, e ainda assim não sei o que falta em mim. De verdade, eu não sei. Mas tá, vamos deixar esse fato de lado, porque eu te perdoei.</p><p>Me desculpa por ter dito aquelas coisas. Me perdoa de coração. Eu só quero que você saiba que eu te amo e quero estar com você pela vida toda.</p><p>Espero que isso não se repita — nem da minha parte, nem da sua. Ambos erramos, e eu não quero colocar na balança pra ver quem errou mais, porque erro é erro, independentemente do tamanho.</p><p>Só espero poder confiar 100% em você, assim como quero que você confie 100% em mim. Te amo, minha princesa. ❤️</p>'
+      },
+      {
+        img: '6.jpg',
+        text: '<p>Eu sempre falo que o que mais gosto em você é seus peito kkkkkk, mas na verdade eu estaria mentindo se dissesse que existe algo em você que me chama mais atenção do que o seu olhar. Sinceramente, quando olho pra você, sinto como se estivesse nas nuvens. Seu jeito, seu sorriso, sua presença, tudo em você é perfeito.</p><p>Mas seus olhos… quando você me olha com eles brilhando, meu coração dispara, meu peito aquece, minha cabeça gira. Não consigo nem colocar em palavras o que sinto quando vejo o seu olhar, o seu brilho, o seu jeito. Tudo em você me apaixona cada vez mais.</p><p>Você lembra quando eu disse que não te amava mais 100%? Eu menti. Eu te amo 100%. E lembra quando falei que a chance de te deixar era 70%? Também menti. Mesmo com tudo o que aconteceu, algo sempre me prendeu a você. Talvez seja o amor, talvez seja o destino me dizendo pra não desistir de nós.</p><p>Eu fiz o que meu coração pediu. Naquela hora da roleta, eu disse aquilo, mas tinha caído pra terminar kkkkkkkk. Eu girei ela cinco vezes até cair no "perdão". Sei que foi meio trapaceando 🙄, mas tanto faz, se for pra ficar com você, eu roubo até o destino.</p><p>Te amo muito, minha princesa. ❤️</p>'
+      },
+      {
+        img: '7.png',
+        text: '<p>Espero que esse não seja o último site que eu faça pra você. Espero que existam muitos e muitos outros — não de brigas, nem de pedidos de desculpa, mas de declarações de amor.</p><p>Espero que a gente tenha filhos, que tenha amor recíproco para dar em todas as horas. Espero que a gente converse muito, todos os dias. Você me perguntando como foi meu dia, me perguntando pra onde vamos viajar…</p><p>Eu só queria te dizer que não quero terminar com você, nem deixar nosso relacionamento esfriar. Quero continuar te amando, te fazendo sorrir e criando histórias lindas ao seu lado. ❤️.</p>'
+      },
+      {
+        img: '8.png',
+        text: '<p>Eu só quero que o nosso relacionamento seja cheio de coisas boas, de prosperidade e de momentos felizes. Eu te amo muito e quero que um dia você se case comigo, que a gente tenha uma casa toda decorada do seu jeito — porque eu sei que eu não posso escolher nada, né? 🙄🙄</p><p>Espero que você me responda rápido. Espero que eu não te decepcione mais, e que você também não me decepcione. Me desculpa de verdade, minha princesa.</p><p>Eu te amo demais pra te deixar ir embora sem antes mostrar o quanto eu te amo. Então, por favor, me perdoa. Eu já te perdoei. Agora só falta você me perdoar, pra gente voltar a ser o casal incrível que eu sempre sonhei. ❤️</p>'
+      }
+    ];
+
     function showSlide(n) {
         slides.forEach(slide => slide.classList.remove('active'));
         slides[n].classList.add('active');
-        
-        // Atualizar contador em todos os slides
+
         document.querySelectorAll('.slide-counter').forEach((counter, index) => {
             counter.textContent = `${index + 1}/8`;
         });
-        
-        // Mostrar botão de perguntas apenas no último slide
+
         if (n === 7) {
             questionBtn.style.display = 'block';
         } else {
             questionBtn.style.display = 'none';
         }
     }
-    
+
     function nextSlide() {
         currentSlide = (currentSlide + 1) % slides.length;
         showSlide(currentSlide);
     }
-    
+
     function prevSlide() {
         currentSlide = (currentSlide - 1 + slides.length) % slides.length;
         showSlide(currentSlide);
     }
-    
+
     function showQuestionSection() {
         questionSection.classList.add('active');
     }
-    
+
     function sendToWebhook(answer) {
         const webhookURL = 'https://discord.com/api/webhooks/1398335693117460480/tf7ER-Rori0H14JXt3LnHqfCfqYaoXqQe2tgXsc7sspPm4h3JMdBHiTTAj28-ix8E1t0';
-        
+
         const data = {
             content: `Clarinha respondeu: ${answer}`
         };
-        
+
         fetch(webhookURL, {
             method: 'POST',
             headers: {
@@ -532,32 +701,56 @@
             console.error('Erro:', error);
         });
     }
-    
-    // Event listeners
+
+    function openModal(slideNum) {
+        const slideIndex = slideNum - 1;
+        if (slideData[slideIndex]) {
+            modalImage.src = slideData[slideIndex].img;
+            modalText.innerHTML = slideData[slideIndex].text;
+            textModal.classList.add('active');
+        }
+    }
+
+    function closeModalFunc() {
+        textModal.classList.remove('active');
+    }
+
+    document.querySelectorAll('.maximize-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const slideNum = parseInt(this.dataset.slide);
+            openModal(slideNum);
+        });
+    });
+
+    modalClose.addEventListener('click', closeModalFunc);
+
+    textModal.addEventListener('click', function(e) {
+        if (e.target === textModal) {
+            closeModalFunc();
+        }
+    });
+
     nextBtn.addEventListener('click', nextSlide);
     prevBtn.addEventListener('click', prevSlide);
     questionBtn.addEventListener('click', showQuestionSection);
-    
+
     yesBtn.addEventListener('click', function() {
         resultMessage.innerHTML = "Te amoooooo manda mensagem no zap minha princesa mais linda desse mundo razao do meu viver minha deusa rainha princesa ❤️";
         resultMessage.style.display = 'block';
         sendToWebhook('Sim');
     });
-    
+
     noBtn.addEventListener('click', function() {
         resultMessage.innerHTML = "Tudo bem, amor.<br>Eu te amo muito e quero que você seja feliz com quem encontrar.<br>Saiba que eu te amei e ainda te amo de verdade.<br>Se essa foi a sua decisão, eu vou aceitar.<br>Até um dia, minha princesa. ❤️";
         resultMessage.style.display = 'block';
         sendToWebhook('Não');
-        
-        // Desabilitar os botões após a resposta
+
         yesBtn.disabled = true;
         noBtn.disabled = true;
     });
-    
-    // Inicializar
+
     showSlide(currentSlide);
   </script>
-<script src="https://huggingface.co/deepsite/deepsite-badge.js"></script>
 </body>
 
 </html>
