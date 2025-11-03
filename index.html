@@ -20,35 +20,36 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 15px;
+      padding: 10px;
       overflow-x: hidden;
     }
 
     .title {
-      font-size: 22px;
+      font-size: 20px;
       color: #ff1493;
-      margin-bottom: 15px;
+      margin: 10px 0;
       text-align: center;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
       line-height: 1.3;
+      padding: 0 10px;
     }
 
     .heart {
       color: #ff1493;
-      font-size: 20px;
+      font-size: 18px;
       margin: 0 3px;
     }
 
     .container {
       width: 100%;
-      max-width: 500px;
+      max-width: 95vw;
       height: 75vh;
       position: relative;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       border-radius: 15px;
       overflow: hidden;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
+      background: white;
     }
 
     .slide {
@@ -61,21 +62,27 @@
       transition: opacity 0.5s ease-in-out;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 15px;
-      text-align: center;
+      padding: 15px 10px;
       background-color: white;
-      border-radius: 15px;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .slide.active {
       opacity: 1;
     }
 
+    .slide-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
     .image-container {
-      width: 180px;
-      height: 180px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
       overflow: hidden;
       margin-bottom: 15px;
@@ -90,44 +97,47 @@
       object-fit: cover;
     }
 
-    .message {
-      font-size: 15px;
-      margin-bottom: 10px;
-      color: #555;
-      line-height: 1.4;
-      text-align: justify;
-      padding: 0 5px;
+    .message-container {
+      flex: 1;
+      width: 100%;
       overflow-y: auto;
-      max-height: calc(100% - 220px);
+      padding: 0 5px;
+      -webkit-overflow-scrolling: touch;
     }
 
-    .question {
-      font-size: 18px;
-      font-weight: bold;
-      color: #ff1493;
-      margin-bottom: 15px;
+    .message {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.5;
+      text-align: justify;
+      margin-bottom: 10px;
+    }
+
+    .message p {
+      margin-bottom: 12px;
     }
 
     .navigation {
       display: flex;
       justify-content: center;
-      margin-top: 10px;
+      margin: 10px 0;
       width: 100%;
-      max-width: 500px;
+      max-width: 95vw;
+      gap: 10px;
     }
 
     .btn {
       background-color: #ff69b4;
       color: white;
       border: none;
-      padding: 10px 15px;
-      margin: 0 5px;
+      padding: 12px 20px;
       border-radius: 25px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
       transition: all 0.3s ease;
       flex: 1;
       max-width: 120px;
+      min-height: 44px;
     }
 
     .btn:hover {
@@ -142,9 +152,10 @@
       color: #ff69b4;
       font-weight: bold;
       font-size: 14px;
-      background-color: rgba(255, 255, 255, 0.7);
-      padding: 3px 8px;
-      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 5px 10px;
+      border-radius: 15px;
+      z-index: 10;
     }
 
     /* Estilos para a seção de pergunta */
@@ -152,15 +163,14 @@
       display: none;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       padding: 15px;
       text-align: center;
       background-color: white;
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       width: 100%;
-      max-width: 500px;
-      margin-top: 10px;
+      max-width: 95vw;
+      margin: 10px 0;
     }
 
     .question-section.active {
@@ -171,13 +181,13 @@
       background-color: #fff5f7;
       padding: 15px;
       border-radius: 10px;
-      margin: 15px 0;
+      margin: 10px 0;
       border: 2px solid #ff69b4;
       width: 100%;
     }
 
     .question-text {
-      font-size: 16px;
+      font-size: 17px;
       color: #ff1493;
       margin-bottom: 15px;
       font-weight: bold;
@@ -195,12 +205,13 @@
       background-color: #ff69b4;
       color: white;
       border: none;
-      padding: 12px 20px;
+      padding: 14px 25px;
       border-radius: 25px;
       cursor: pointer;
-      font-size: 15px;
+      font-size: 16px;
       transition: all 0.3s ease;
-      min-width: 100px;
+      min-width: 110px;
+      min-height: 50px;
     }
 
     .response-btn:hover {
@@ -228,45 +239,47 @@
       font-size: 16px;
       color: #555;
       margin-top: 15px;
-      padding: 12px;
+      padding: 15px;
       border-radius: 10px;
       background-color: #f9f9f9;
       display: none;
-      line-height: 1.4;
+      line-height: 1.5;
       text-align: center;
+      width: 100%;
     }
 
     /* Melhorias para telas muito pequenas */
     @media (max-width: 380px) {
       .title {
-        font-size: 20px;
+        font-size: 18px;
       }
       
       .image-container {
-        width: 150px;
-        height: 150px;
+        width: 130px;
+        height: 130px;
       }
       
       .message {
-        font-size: 14px;
+        font-size: 15px;
       }
       
       .btn {
-        padding: 8px 12px;
-        font-size: 13px;
+        padding: 10px 15px;
+        font-size: 14px;
+        max-width: 100px;
       }
       
       .response-btn {
-        padding: 10px 15px;
-        font-size: 14px;
-        min-width: 90px;
+        padding: 12px 20px;
+        font-size: 15px;
+        min-width: 100px;
       }
     }
 
     /* Melhorias para orientação paisagem em mobile */
     @media (max-height: 600px) and (orientation: landscape) {
       .container {
-        height: 65vh;
+        height: 70vh;
       }
       
       .image-container {
@@ -276,9 +289,58 @@
       }
       
       .message {
-        font-size: 13px;
-        max-height: calc(100% - 150px);
+        font-size: 14px;
       }
+    }
+
+    /* Melhorias para tablets */
+    @media (min-width: 768px) {
+      .container {
+        max-width: 90vw;
+        height: 70vh;
+      }
+      
+      .image-container {
+        width: 180px;
+        height: 180px;
+      }
+      
+      .message {
+        font-size: 17px;
+      }
+      
+      .btn {
+        max-width: 140px;
+      }
+    }
+
+    /* Garantir que o texto seja legível e scrollável */
+    .slide::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .slide::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .slide::-webkit-scrollbar-thumb {
+      background: #ff69b4;
+      border-radius: 10px;
+    }
+
+    .message-container::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .message-container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .message-container::-webkit-scrollbar-thumb {
+      background: #ff69b4;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -289,174 +351,149 @@
   <div class="container">
     <!-- Slide 1 -->
     <div class="slide active">
-      <div class="image-container">
-        <img src="1.jpg" alt="Foto da Clarinha">
+      <div class="slide-content">
+        <div class="image-container">
+          <img src="https://cdn.discordapp.com/attachments/1398335670178545847/1434958304794382468/image.jpg?ex=690a3890&is=6908e710&hm=cdb55686f838e02f19bd42518265b0e3178f235146e6adaee841ee9c9731c6b6&" alt="Foto da Clarinha">
+        </div>
+        <div class="message-container">
+          <div class="message">
+            <p>Oii 💕</p>
+            <p>Eu sei que já fiz vários sites pra você, e esse é apenas mais um, mas eu te amo muito, de verdade. Estou com medo de te perder, então fiz esse site pra mostrar um pouco dos nossos momentos e demonstrar o quanto eu te amo.</p>
+            <p>Você lembra desse dia? Nosso primeiro "encontro" foi simplesmente incrível! Eu fiquei muito feliz, foi o dia em que recebi seu primeiro beijo, e meu coração quase saltou do peito. Senti aquele friozinho na barriga… e, resumindo, me apaixonei por você naquele momento.</p>
+            <p>Esse dia nunca vai sair da minha memória. Sempre vou lembrar do instante em que senti sua boca pela primeira vez, do abraço que te dei, de cada segundo que passamos juntos.</p>
+            <p>Porque eu te amo de verdade. 💞</p>
+          </div>
+        </div>
       </div>
-      <p class="message">Oii 💕
-        Eu sei que já fiz vários sites pra você, e esse é apenas mais um, mas eu te amo muito, de verdade.
-        Estou com medo de te perder, então fiz esse site pra mostrar um pouco dos nossos momentos e demonstrar o quanto
-        eu te amo.
-
-        Você lembra desse dia? Nosso primeiro "encontro" foi simplesmente incrível!
-        Eu fiquei muito feliz, foi o dia em que recebi seu primeiro beijo, e meu coração quase saltou do peito.
-        Senti aquele friozinho na barriga… e, resumindo, me apaixonei por você naquele momento.
-
-        Esse dia nunca vai sair da minha memória.
-        Sempre vou lembrar do instante em que senti sua boca pela primeira vez, do abraço que te dei, de cada segundo
-        que passamos juntos.
-
-        Porque eu te amo de verdade. 💞</p>
+      <div class="slide-counter">1/8</div>
     </div>
 
     <!-- Slide 2 -->
     <div class="slide">
-      <div class="image-container">
-        <img src="2.png" alt="Foto da Clarinha">
+      <div class="slide-content">
+        <div class="image-container">
+          <img src="https://media.discordapp.net/attachments/1398335670178545847/1434958306991935548/image.jpg?ex=690a3890&is=6908e710&hm=92e7dc8acb7d3ea79a4f2c298b1e954886fd9a2712b8a0f88d6be983c18a9bac&=&format=webp&width=344&height=459" alt="Foto da Clarinha">
+        </div>
+        <div class="message-container">
+          <div class="message">
+            <p>Cada momento ao seu lado é um alívio para o meu coração. Eu sei que às vezes sou paranoico, sei que às vezes sou chato, e sei que você odeia quando fico com paranoia ou quando começo a me questionar sobre tudo.</p>
+            <p>Mas, na verdade, o motivo de eu fazer isso é porque eu me importo muito com você e tenho medo de te perder.</p>
+            <p>Cada segundo sem conversar com você, cada segundo sem ouvir sua voz, cada segundo brigado com você… meu coração dói. Meu cérebro não funciona direito, eu não consigo comer, não consigo trabalhar, porque simplesmente eu me importo com você em um nível que você nem imagina. ❤️</p>
+          </div>
+        </div>
       </div>
-      <p class="message">Cada momento ao seu lado é um alívio para o meu coração.
-        Eu sei que às vezes sou paranoico, sei que às vezes sou chato, e sei que você odeia quando fico com paranoia ou
-        quando começo a me questionar sobre tudo.
-        Mas, na verdade, o motivo de eu fazer isso é porque eu me importo muito com você e tenho medo de te perder.
-
-        Cada segundo sem conversar com você, cada segundo sem ouvir sua voz, cada segundo brigado com você… meu coração
-        dói.
-        Meu cérebro não funciona direito, eu não consigo comer, não consigo trabalhar, porque simplesmente eu me importo
-        com você em um nível que você nem imagina. ❤️</p>
+      <div class="slide-counter">2/8</div>
     </div>
 
     <!-- Slide 3 -->
     <div class="slide">
-      <div class="image-container">
-        <img src="3.png" alt="Foto da Clarinha">
+      <div class="slide-content">
+        <div class="image-container">
+          <img src="https://media.discordapp.net/attachments/1398335670178545847/1434958310791975063/image.jpg?ex=690a3891&is=6908e711&hm=5052be48549ea88739bbcedd83caf9a661d713b0b6f1d6eaa10c2f8640fe93b9&=&format=webp&width=612&height=459" alt="Foto da Clarinha">
+        </div>
+        <div class="message-container">
+          <div class="message">
+            <p>Sei que errei em ter falado aquele monte de bobagem, aquele tanto de besteira. Mas, de verdade, nenhuma daquelas palavras era o que eu realmente queria dizer.</p>
+            <p>Eu não sou muito bom em demonstrar meus sentimentos, mas o que eu sinto por você é algo de uma intensidade gigantesca. Tenho medo de falar algo errado e acabar te magoando.</p>
+            <p>Quando estou com raiva, às vezes falo sem pensar e acabo te ferindo e quando eu te machuco, eu também fico machucado, porque eu te amo.</p>
+            <p>Eu sei que esse momento está sendo difícil pra gente, mas poxa… a gente sobreviveu até ao "Alto dos Carneiros", né? kkkkkkkkkk</p>
+          </div>
+        </div>
       </div>
-      <p class="message">Sei que errei em ter falado aquele monte de bobagem, aquele tanto de besteira.
-        Mas, de verdade, nenhuma daquelas palavras era o que eu realmente queria dizer.
-        Eu não sou muito bom em demonstrar meus sentimentos, mas o que eu sinto por você é algo de uma intensidade
-        gigantesca.
-        Tenho medo de falar algo errado e acabar te magoando.
-        Quando estou com raiva, às vezes falo sem pensar e acabo te ferindo e quando eu te machuco, eu também fico
-        machucado, porque eu te amo.
-
-        Eu sei que esse momento está sendo difícil pra gente, mas poxa… a gente sobreviveu até ao "Alto dos Carneiros",
-        né? kkkkkkkkkk</p>
+      <div class="slide-counter">3/8</div>
     </div>
 
     <!-- Slide 4 -->
     <div class="slide">
-      <div class="image-container">
-        <img src="4.png" alt="Foto da Clarinha">
+      <div class="slide-content">
+        <div class="image-container">
+          <img src="https://media.discordapp.net/attachments/1398335670178545847/1434958307453567177/image.jpg?ex=690a3890&is=6908e710&hm=b321b107df6e6560c1b3645eb716d7961cbf185acf480227a3840ae664a80a65&=&format=webp&width=344&height=459" alt="Foto da Clarinha">
+        </div>
+        <div class="message-container">
+          <div class="message">
+            <p>Você quer saber uma história louca? Vou te contar algo que nunca contei pra ninguém… pra ninguém mesmo.</p>
+            <p>Quando eu era criança e morava em Jardim, sempre que dava duas horas da manhã eu ficava olhando as estrelas, sozinho. Eu tinha apenas sete anos de idade, mas mesmo assim sentia que existia algo no espaço que eu não conseguia decifrar algo misterioso, algo que eu não podia tocar, ouvir ou entender.</p>
+            <p>Eu me perguntava: por que a gente foi criado? Por que existe o bem e o mal? Por que não podemos fazer certas coisas? Por que existem regras?</p>
+            <p>Essas perguntas sempre ficaram na minha cabeça. Um dia, olhando para as estrelas, eu percebi que tudo tem uma lógica, algo que mantém o equilíbrio do mundo. Resumindo: com sete anos, eu descobri que tudo precisa de algo para se equilibrar.</p>
+            <p>Meu mundo era bagunçado, girava errado, pesava diferente… eu sabia que estava faltando alguma coisa. E quando eu te conheci, eu percebi o que realmente faltava: uma pessoa que me amasse e que eu pudesse amar de forma intensa. Essa pessoa é você. 💖</p>
+          </div>
+        </div>
       </div>
-      <p class="message">Você quer saber uma história louca?
-Vou te contar algo que nunca contei pra ninguém… pra ninguém mesmo.
-
-Quando eu era criança e morava em Jardim, sempre que dava duas horas da manhã eu ficava olhando as estrelas, sozinho.
-Eu tinha apenas sete anos de idade, mas mesmo assim sentia que existia algo no espaço que eu não conseguia decifrar algo misterioso, algo que eu não podia tocar, ouvir ou entender.
-
-Eu me perguntava: por que a gente foi criado?
-Por que existe o bem e o mal?
-Por que não podemos fazer certas coisas?
-Por que existem regras?
-
-Essas perguntas sempre ficaram na minha cabeça.
-Um dia, olhando para as estrelas, eu percebi que tudo tem uma lógica, algo que mantém o equilíbrio do mundo.
-Resumindo: com sete anos, eu descobri que tudo precisa de algo para se equilibrar.
-
-Meu mundo era bagunçado, girava errado, pesava diferente… eu sabia que estava faltando alguma coisa.
-E quando eu te conheci, eu percebi o que realmente faltava: uma pessoa que me amasse e que eu pudesse amar de forma intensa.
-Essa pessoa é você. 💖</p>
+      <div class="slide-counter">4/8</div>
     </div>
 
     <!-- Slide 5 -->
     <div class="slide">
-      <div class="image-container">
-        <img src="5.png" alt="Foto da Clarinha">
+      <div class="slide-content">
+        <div class="image-container">
+          <img src="https://media.discordapp.net/attachments/1398335670178545847/1434958306321105016/image.jpg?ex=690a3890&is=6908e710&hm=596d9f35811c9e2badb525b7c73de633049e5cc0de0dd66fc7bb62eea4359c19&=&format=webp&width=344&height=459" alt="Foto da Clarinha">
+        </div>
+        <div class="message-container">
+          <div class="message">
+            <p>Tá… vamos falar sobre um ponto delicado: a traição. Isso me magoou muito, de verdade. Eu não estava conseguindo pensar, comer, nem dormir. Minha imunidade baixou, minha pressão caiu… eu me senti um morto-vivo por um tempo.</p>
+            <p>Mas, mesmo assim, eu te amo muito. E acho que você também me ama. Talvez você tenha feito isso porque não estava se sentindo bem comigo, talvez tenha sido por estar enjoada de mim… sinceramente, eu não sei.</p>
+            <p>Eu te trato como uma princesa, te dou tudo o que posso, e ainda assim não sei o que falta em mim. De verdade, eu não sei. Mas tá, vamos deixar esse fato de lado, porque eu te perdoei.</p>
+            <p>Me desculpa por ter dito aquelas coisas. Me perdoa de coração. Eu só quero que você saiba que eu te amo e quero estar com você pela vida toda.</p>
+            <p>Espero que isso não se repita — nem da minha parte, nem da sua. Ambos erramos, e eu não quero colocar na balança pra ver quem errou mais, porque erro é erro, independentemente do tamanho.</p>
+            <p>Só espero poder confiar 100% em você, assim como quero que você confie 100% em mim. Te amo, minha princesa. ❤️</p>
+          </div>
+        </div>
       </div>
-      <p class="message">Tá… vamos falar sobre um ponto delicado: a traição.
-Isso me magoou muito, de verdade.
-Eu não estava conseguindo pensar, comer, nem dormir.
-Minha imunidade baixou, minha pressão caiu… eu me senti um morto-vivo por um tempo.
-
-Mas, mesmo assim, eu te amo muito.
-E acho que você também me ama.
-Talvez você tenha feito isso porque não estava se sentindo bem comigo, talvez tenha sido por estar enjoada de mim… sinceramente, eu não sei.
-
-Eu te trato como uma princesa, te dou tudo o que posso, e ainda assim não sei o que falta em mim.
-De verdade, eu não sei.
-Mas tá, vamos deixar esse fato de lado, porque eu te perdoei.
-
-Me desculpa por ter dito aquelas coisas.
-Me perdoa de coração.
-Eu só quero que você saiba que eu te amo e quero estar com você pela vida toda.
-
-Espero que isso não se repita — nem da minha parte, nem da sua.
-Ambos erramos, e eu não quero colocar na balança pra ver quem errou mais, porque erro é erro, independentemente do tamanho.
-
-Só espero poder confiar 100% em você, assim como quero que você confie 100% em mim.
-Te amo, minha princesa. ❤️</p>
+      <div class="slide-counter">5/8</div>
     </div>
 
     <!-- Slide 6 -->
     <div class="slide">
-      <div class="image-container">
-        <img src="6.jpg" alt="Foto da Clarinha">
+      <div class="slide-content">
+        <div class="image-container">
+          <img src="https://cdn.discordapp.com/attachments/1398335670178545847/1434958309735006341/image.jpg?ex=690a3891&is=6908e711&hm=00fd198ae48ee379ec9ddf1058d6a8c471cd175c2751bbab93cb16663ee85a46&" alt="Foto da Clarinha">
+        </div>
+        <div class="message-container">
+          <div class="message">
+            <p>Eu sempre falo que o que mais gosto em você é seus peito kkkkkk, mas na verdade eu estaria mentindo se dissesse que existe algo em você que me chama mais atenção do que o seu olhar. Sinceramente, quando olho pra você, sinto como se estivesse nas nuvens. Seu jeito, seu sorriso, sua presença, tudo em você é perfeito.</p>
+            <p>Mas seus olhos… quando você me olha com eles brilhando, meu coração dispara, meu peito aquece, minha cabeça gira. Não consigo nem colocar em palavras o que sinto quando vejo o seu olhar, o seu brilho, o seu jeito. Tudo em você me apaixona cada vez mais.</p>
+            <p>Você lembra quando eu disse que não te amava mais 100%? Eu menti. Eu te amo 100%. E lembra quando falei que a chance de te deixar era 70%? Também menti. Mesmo com tudo o que aconteceu, algo sempre me prendeu a você. Talvez seja o amor, talvez seja o destino me dizendo pra não desistir de nós.</p>
+            <p>Eu fiz o que meu coração pediu. Naquela hora da roleta, eu disse aquilo, mas tinha caído pra terminar kkkkkkkk. Eu girei ela cinco vezes até cair no "perdão". Sei que foi meio trapaceando 🙄, mas tanto faz, se for pra ficar com você, eu roubo até o destino.</p>
+            <p>Te amo muito, minha princesa. ❤️</p>
+          </div>
+        </div>
       </div>
-      <p class="message">Eu sempre falo que o que mais gosto em você é seus peito kkkkkk, mas na verdade eu estaria mentindo se dissesse que existe algo em você que me chama mais atenção do que o seu olhar.
-Sinceramente, quando olho pra você, sinto como se estivesse nas nuvens.
-Seu jeito, seu sorriso, sua presença, tudo em você é perfeito.
-
-Mas seus olhos… quando você me olha com eles brilhando, meu coração dispara, meu peito aquece, minha cabeça gira.
-Não consigo nem colocar em palavras o que sinto quando vejo o seu olhar, o seu brilho, o seu jeito.
-Tudo em você me apaixona cada vez mais.
-
-Você lembra quando eu disse que não te amava mais 100%? Eu menti.
-Eu te amo 100%.
-E lembra quando falei que a chance de te deixar era 70%? Também menti.
-Mesmo com tudo o que aconteceu, algo sempre me prendeu a você.
-Talvez seja o amor, talvez seja o destino me dizendo pra não desistir de nós.
-
-Eu fiz o que meu coração pediu.
-Naquela hora da roleta, eu disse aquilo, mas tinha caído pra terminar kkkkkkkk
-Eu girei ela cinco vezes até cair no "perdão".
-Sei que foi meio trapaceando 🙄, mas tanto faz, se for pra ficar com você, eu roubo até o destino.
-
-Te amo muito, minha princesa. ❤️</p>
+      <div class="slide-counter">6/8</div>
     </div>
 
     <!-- Slide 7 -->
     <div class="slide">
-      <div class="image-container">
-        <img src="7.png" alt="Foto da Clarinha">
+      <div class="slide-content">
+        <div class="image-container">
+          <img src="https://media.discordapp.net/attachments/1398335670178545847/1434958311358201856/image.jpg?ex=690a3891&is=6908e711&hm=1b6b535f045f3c79529c00224de801f11dec86bf693c233bb569b39e3f083c1e&=&format=webp&width=612&height=459" alt="Foto da Clarinha">
+        </div>
+        <div class="message-container">
+          <div class="message">
+            <p>Espero que esse não seja o último site que eu faça pra você. Espero que existam muitos e muitos outros — não de brigas, nem de pedidos de desculpa, mas de declarações de amor.</p>
+            <p>Espero que a gente tenha filhos, que tenha amor recíproco para dar em todas as horas. Espero que a gente converse muito, todos os dias. Você me perguntando como foi meu dia, me perguntando pra onde vamos viajar…</p>
+            <p>Eu só queria te dizer que não quero terminar com você, nem deixar nosso relacionamento esfriar. Quero continuar te amando, te fazendo sorrir e criando histórias lindas ao seu lado. ❤️.</p>
+          </div>
+        </div>
       </div>
-      <p class="message">Espero que esse não seja o último site que eu faça pra você.
-Espero que existam muitos e muitos outros — não de brigas, nem de pedidos de desculpa, mas de declarações de amor.
-
-Espero que a gente tenha filhos, que tenha amor recíproco para dar em todas as horas.
-Espero que a gente converse muito, todos os dias.
-Você me perguntando como foi meu dia, me perguntando pra onde vamos viajar…
-
-Eu só queria te dizer que não quero terminar com você, nem deixar nosso relacionamento esfriar.
-Quero continuar te amando, te fazendo sorrir e criando histórias lindas ao seu lado. ❤️.</p>
+      <div class="slide-counter">7/8</div>
     </div>
 
     <!-- Slide 8 -->
     <div class="slide">
-      <div class="image-container">
-        <img src="8.png" alt="Foto da Clarinha">
+      <div class="slide-content">
+        <div class="image-container">
+          <img src="https://media.discordapp.net/attachments/1398335670178545847/1434958308036317385/image.jpg?ex=690a3890&is=6908e710&hm=f0e0740a4ba47b22526c03aab4c1bcc9685de9b892b52dc1f68f755c28b07c07&=&format=webp&width=344&height=459" alt="Foto da Clarinha">
+        </div>
+        <div class="message-container">
+          <div class="message">
+            <p>Eu só quero que o nosso relacionamento seja cheio de coisas boas, de prosperidade e de momentos felizes. Eu te amo muito e quero que um dia você se case comigo, que a gente tenha uma casa toda decorada do seu jeito — porque eu sei que eu não posso escolher nada, né? 🙄🙄</p>
+            <p>Espero que você me responda rápido. Espero que eu não te decepcione mais, e que você também não me decepcione. Me desculpa de verdade, minha princesa.</p>
+            <p>Eu te amo demais pra te deixar ir embora sem antes mostrar o quanto eu te amo. Então, por favor, me perdoa. Eu já te perdoei. Agora só falta você me perdoar, pra gente voltar a ser o casal incrível que eu sempre sonhei. ❤️</p>
+          </div>
+        </div>
       </div>
-      <p class="message">Eu só quero que o nosso relacionamento seja cheio de coisas boas, de prosperidade e de momentos felizes.
-Eu te amo muito e quero que um dia você se case comigo, que a gente tenha uma casa toda decorada do seu jeito — porque eu sei que eu não posso escolher nada, né? 🙄🙄
-
-Espero que você me responda rápido.
-Espero que eu não te decepcione mais, e que você também não me decepcione.
-Me desculpa de verdade, minha princesa.
-
-Eu te amo demais pra te deixar ir embora sem antes mostrar o quanto eu te amo.
-Então, por favor, me perdoa.
-Eu já te perdoei.
-Agora só falta você me perdoar, pra gente voltar a ser o casal incrível que eu sempre sonhei. ❤️</p>
+      <div class="slide-counter">8/8</div>
     </div>
-
-    <div class="slide-counter">1/8</div>
   </div>
 
   <div class="navigation">
@@ -497,7 +534,6 @@ Agora só falta você me perdoar, pra gente voltar a ser o casal incrível que e
     function showSlide(n) {
         slides.forEach(slide => slide.classList.remove('active'));
         slides[n].classList.add('active');
-        slideCounter.textContent = `${n + 1}/8`;
         
         // Mostrar botão de perguntas apenas no último slide
         if (n === 7) {
