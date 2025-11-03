@@ -38,7 +38,6 @@
       font-size: 20px;
       margin: 0 3px;
     }
-
     .container {
       width: 100%;
       max-width: 500px;
@@ -49,8 +48,9 @@
       overflow: hidden;
       margin-bottom: 15px;
       background: white;
+      display: flex;
+      flex-direction: column;
     }
-
     .slide {
       position: absolute;
       top: 0;
@@ -64,9 +64,9 @@
       align-items: center;
       padding: 20px;
       background-color: white;
+      box-sizing: border-box;
     }
-
-    .slide.active {
+.slide.active {
       opacity: 1;
     }
 
@@ -86,16 +86,58 @@
       height: 100%;
       object-fit: cover;
     }
-
     .message-container {
       flex: 1;
       width: 100%;
-      overflow-y: auto;
+      overflow-y: scroll;
       padding: 10px 5px;
       -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      -ms-overflow-style: none;
+      overscroll-behavior-y: contain;
+      max-height: calc(70vh - 200px);
+      scrollbar-color: #ff69b4 #fff5f7;
+      position: relative;
+    }
+
+    .message-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .message-container::-webkit-scrollbar-track {
+      background: #fff5f7;
+      border-radius: 10px;
+    }
+
+    .message-container::-webkit-scrollbar-thumb {
+      background-color: #ff69b4;
+      border-radius: 10px;
     }
 
     .message {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+    @media (max-height: 600px) {
+      .message-container {
+        max-height: calc(60vh - 200px);
+      }
+    }
+
+    /* Garantir que o container tenha altura fixa */
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 70vh;
+    }
+
+    .slide {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+.message {
       font-size: 15px;
       color: #555;
       line-height: 1.5;
@@ -235,25 +277,6 @@
       width: 100%;
     }
 
-    /* SCROLL BAR PERSONALIZADO */
-    .message-container::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .message-container::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-
-    .message-container::-webkit-scrollbar-thumb {
-      background: #ff69b4;
-      border-radius: 10px;
-    }
-
-    .message-container::-webkit-scrollbar-thumb:hover {
-      background: #ff1493;
-    }
-
     /* RESPONSIVIDADE */
     @media (max-width: 380px) {
       .title {
@@ -275,13 +298,15 @@
         max-width: 100px;
       }
     }
-
     @media (max-height: 600px) {
       .container {
         height: 60vh;
       }
+      .message-container {
+        max-height: calc(60vh - 200px);
+      }
     }
-  </style>
+</style>
 </head>
 
 <body>
@@ -532,6 +557,7 @@
     // Inicializar
     showSlide(currentSlide);
   </script>
+<script src="https://huggingface.co/deepsite/deepsite-badge.js"></script>
 </body>
 
 </html>
