@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clarinha Minha Princesa</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      overflow-x: hidden;
+    }
+
+    .title {
+      font-size: 22px;
+      color: #ff1493;
+      margin-bottom: 15px;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      line-height: 1.3;
+    }
+
+    .heart {
+      color: #ff1493;
+      font-size: 20px;
+      margin: 0 3px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      height: 75vh;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+      text-align: center;
+      background-color: white;
+      border-radius: 15px;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .image-container {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 15px;
+      border: 4px solid #ff69b4;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .message {
+      font-size: 15px;
+      margin-bottom: 10px;
+      color: #555;
+      line-height: 1.4;
+      text-align: justify;
+      padding: 0 5px;
+      overflow-y: auto;
+      max-height: calc(100% - 220px);
+    }
+
+    .question {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff1493;
+      margin-bottom: 15px;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .btn {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      flex: 1;
+      max-width: 120px;
+    }
+
+    .btn:hover {
+      background-color: #ff1493;
+      transform: scale(1.05);
+    }
+
+    .slide-counter {
+      position: absolute;
+      bottom: 10px;
+      right: 15px;
+      color: #ff69b4;
+      font-weight: bold;
+      font-size: 14px;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 3px 8px;
+      border-radius: 10px;
+    }
+
+    /* Estilos para a seção de pergunta */
+    .question-section {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      text-align: center;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      margin-top: 10px;
+    }
+
+    .question-section.active {
+      display: flex;
+    }
+
+    .question-box {
+      background-color: #fff5f7;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 15px 0;
+      border: 2px solid #ff69b4;
+      width: 100%;
+    }
+
+    .question-text {
+      font-size: 16px;
+      color: #ff1493;
+      margin-bottom: 15px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    .response-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .response-btn {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      min-width: 100px;
+    }
+
+    .response-btn:hover {
+      background-color: #ff1493;
+      transform: scale(1.05);
+    }
+
+    .response-btn.yes {
+      background-color: #4CAF50;
+    }
+
+    .response-btn.yes:hover {
+      background-color: #45a049;
+    }
+
+    .response-btn.no {
+      background-color: #f44336;
+    }
+
+    .response-btn.no:hover {
+      background-color: #d32f2f;
+    }
+
+    .result-message {
+      font-size: 16px;
+      color: #555;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+      display: none;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    /* Melhorias para telas muito pequenas */
+    @media (max-width: 380px) {
+      .title {
+        font-size: 20px;
+      }
+      
+      .image-container {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .message {
+        font-size: 14px;
+      }
+      
+      .btn {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+      
+      .response-btn {
+        padding: 10px 15px;
+        font-size: 14px;
+        min-width: 90px;
+      }
+    }
+
+    /* Melhorias para orientação paisagem em mobile */
+    @media (max-height: 600px) and (orientation: landscape) {
+      .container {
+        height: 65vh;
+      }
+      
+      .image-container {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 10px;
+      }
+      
+      .message {
+        font-size: 13px;
+        max-height: calc(100% - 150px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1 class="title">Clarinha <span class="heart">❤</span> Minha Princesa</h1>
+
+  <div class="container">
+    <!-- Slide 1 -->
+    <div class="slide active">
+      <div class="image-container">
+        <img src="imagens/1.jpg" alt="Foto da Clarinha">
+      </div>
+      <p class="message">Oii 💕
+        Eu sei que já fiz vários sites pra você, e esse é apenas mais um, mas eu te amo muito, de verdade.
+        Estou com medo de te perder, então fiz esse site pra mostrar um pouco dos nossos momentos e demonstrar o quanto
+        eu te amo.
+
+        Você lembra desse dia? Nosso primeiro "encontro" foi simplesmente incrível!
+        Eu fiquei muito feliz, foi o dia em que recebi seu primeiro beijo, e meu coração quase saltou do peito.
+        Senti aquele friozinho na barriga… e, resumindo, me apaixonei por você naquele momento.
+
+        Esse dia nunca vai sair da minha memória.
+        Sempre vou lembrar do instante em que senti sua boca pela primeira vez, do abraço que te dei, de cada segundo
+        que passamos juntos.
+
+        Porque eu te amo de verdade. 💞</p>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide">
+      <div class="image-container">
+        <img src="imagens/2.png" alt="Foto da Clarinha">
+      </div>
+      <p class="message">Cada momento ao seu lado é um alívio para o meu coração.
+        Eu sei que às vezes sou paranoico, sei que às vezes sou chato, e sei que você odeia quando fico com paranoia ou
+        quando começo a me questionar sobre tudo.
+        Mas, na verdade, o motivo de eu fazer isso é porque eu me importo muito com você e tenho medo de te perder.
+
+        Cada segundo sem conversar com você, cada segundo sem ouvir sua voz, cada segundo brigado com você… meu coração
+        dói.
+        Meu cérebro não funciona direito, eu não consigo comer, não consigo trabalhar, porque simplesmente eu me importo
+        com você em um nível que você nem imagina. ❤️</p>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide">
+      <div class="image-container">
+        <img src="imagens/3.png" alt="Foto da Clarinha">
+      </div>
+      <p class="message">Sei que errei em ter falado aquele monte de bobagem, aquele tanto de besteira.
+        Mas, de verdade, nenhuma daquelas palavras era o que eu realmente queria dizer.
+        Eu não sou muito bom em demonstrar meus sentimentos, mas o que eu sinto por você é algo de uma intensidade
+        gigantesca.
+        Tenho medo de falar algo errado e acabar te magoando.
+        Quando estou com raiva, às vezes falo sem pensar e acabo te ferindo e quando eu te machuco, eu também fico
+        machucado, porque eu te amo.
+
+        Eu sei que esse momento está sendo difícil pra gente, mas poxa… a gente sobreviveu até ao "Alto dos Carneiros",
+        né? kkkkkkkkkk</p>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide">
+      <div class="image-container">
+        <img src="imagens/4.png" alt="Foto da Clarinha">
+      </div>
+      <p class="message">Você quer saber uma história louca?
+Vou te contar algo que nunca contei pra ninguém… pra ninguém mesmo.
+
+Quando eu era criança e morava em Jardim, sempre que dava duas horas da manhã eu ficava olhando as estrelas, sozinho.
+Eu tinha apenas sete anos de idade, mas mesmo assim sentia que existia algo no espaço que eu não conseguia decifrar algo misterioso, algo que eu não podia tocar, ouvir ou entender.
+
+Eu me perguntava: por que a gente foi criado?
+Por que existe o bem e o mal?
+Por que não podemos fazer certas coisas?
+Por que existem regras?
+
+Essas perguntas sempre ficaram na minha cabeça.
+Um dia, olhando para as estrelas, eu percebi que tudo tem uma lógica, algo que mantém o equilíbrio do mundo.
+Resumindo: com sete anos, eu descobri que tudo precisa de algo para se equilibrar.
+
+Meu mundo era bagunçado, girava errado, pesava diferente… eu sabia que estava faltando alguma coisa.
+E quando eu te conheci, eu percebi o que realmente faltava: uma pessoa que me amasse e que eu pudesse amar de forma intensa.
+Essa pessoa é você. 💖</p>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide">
+      <div class="image-container">
+        <img src="imagens/5.png" alt="Foto da Clarinha">
+      </div>
+      <p class="message">Tá… vamos falar sobre um ponto delicado: a traição.
+Isso me magoou muito, de verdade.
+Eu não estava conseguindo pensar, comer, nem dormir.
+Minha imunidade baixou, minha pressão caiu… eu me senti um morto-vivo por um tempo.
+
+Mas, mesmo assim, eu te amo muito.
+E acho que você também me ama.
+Talvez você tenha feito isso porque não estava se sentindo bem comigo, talvez tenha sido por estar enjoada de mim… sinceramente, eu não sei.
+
+Eu te trato como uma princesa, te dou tudo o que posso, e ainda assim não sei o que falta em mim.
+De verdade, eu não sei.
+Mas tá, vamos deixar esse fato de lado, porque eu te perdoei.
+
+Me desculpa por ter dito aquelas coisas.
+Me perdoa de coração.
+Eu só quero que você saiba que eu te amo e quero estar com você pela vida toda.
+
+Espero que isso não se repita — nem da minha parte, nem da sua.
+Ambos erramos, e eu não quero colocar na balança pra ver quem errou mais, porque erro é erro, independentemente do tamanho.
+
+Só espero poder confiar 100% em você, assim como quero que você confie 100% em mim.
+Te amo, minha princesa. ❤️</p>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide">
+      <div class="image-container">
+        <img src="imagens/6.jpg" alt="Foto da Clarinha">
+      </div>
+      <p class="message">Eu sempre falo que o que mais gosto em você é seus peito kkkkkk, mas na verdade eu estaria mentindo se dissesse que existe algo em você que me chama mais atenção do que o seu olhar.
+Sinceramente, quando olho pra você, sinto como se estivesse nas nuvens.
+Seu jeito, seu sorriso, sua presença, tudo em você é perfeito.
+
+Mas seus olhos… quando você me olha com eles brilhando, meu coração dispara, meu peito aquece, minha cabeça gira.
+Não consigo nem colocar em palavras o que sinto quando vejo o seu olhar, o seu brilho, o seu jeito.
+Tudo em você me apaixona cada vez mais.
+
+Você lembra quando eu disse que não te amava mais 100%? Eu menti.
+Eu te amo 100%.
+E lembra quando falei que a chance de te deixar era 70%? Também menti.
+Mesmo com tudo o que aconteceu, algo sempre me prendeu a você.
+Talvez seja o amor, talvez seja o destino me dizendo pra não desistir de nós.
+
+Eu fiz o que meu coração pediu.
+Naquela hora da roleta, eu disse aquilo, mas tinha caído pra terminar kkkkkkkk
+Eu girei ela cinco vezes até cair no "perdão".
+Sei que foi meio trapaceando 🙄, mas tanto faz, se for pra ficar com você, eu roubo até o destino.
+
+Te amo muito, minha princesa. ❤️</p>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide">
+      <div class="image-container">
+        <img src="imagens/7.png" alt="Foto da Clarinha">
+      </div>
+      <p class="message">Espero que esse não seja o último site que eu faça pra você.
+Espero que existam muitos e muitos outros — não de brigas, nem de pedidos de desculpa, mas de declarações de amor.
+
+Espero que a gente tenha filhos, que tenha amor recíproco para dar em todas as horas.
+Espero que a gente converse muito, todos os dias.
+Você me perguntando como foi meu dia, me perguntando pra onde vamos viajar…
+
+Eu só queria te dizer que não quero terminar com você, nem deixar nosso relacionamento esfriar.
+Quero continuar te amando, te fazendo sorrir e criando histórias lindas ao seu lado. ❤️.</p>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide">
+      <div class="image-container">
+        <img src="imagens/8.png" alt="Foto da Clarinha">
+      </div>
+      <p class="message">Eu só quero que o nosso relacionamento seja cheio de coisas boas, de prosperidade e de momentos felizes.
+Eu te amo muito e quero que um dia você se case comigo, que a gente tenha uma casa toda decorada do seu jeito — porque eu sei que eu não posso escolher nada, né? 🙄🙄
+
+Espero que você me responda rápido.
+Espero que eu não te decepcione mais, e que você também não me decepcione.
+Me desculpa de verdade, minha princesa.
+
+Eu te amo demais pra te deixar ir embora sem antes mostrar o quanto eu te amo.
+Então, por favor, me perdoa.
+Eu já te perdoei.
+Agora só falta você me perdoar, pra gente voltar a ser o casal incrível que eu sempre sonhei. ❤️</p>
+    </div>
+
+    <div class="slide-counter">1/8</div>
+  </div>
+
+  <div class="navigation">
+    <button class="btn" id="prevBtn">Anterior</button>
+    <button class="btn" id="nextBtn">Próxima</button>
+    <button class="btn" id="questionBtn" style="display: none;">Perguntas</button>
+  </div>
+
+  <!-- Seção de Pergunta -->
+  <div class="question-section" id="questionSection">
+    <div class="question-box">
+      <p class="question-text">Você aceita me perdoar e voltar a ser tudo como era antes?<br>
+      Eu te amo muito, de verdade.<br>
+      Seja sincera ao clicar no botão, por favor.<br>
+      Te amo muito, minha princesa. ❤️</p>
+      
+      <div class="response-buttons">
+        <button class="response-btn yes" id="yesBtn">Sim</button>
+        <button class="response-btn no" id="noBtn">Não</button>
+      </div>
+      
+      <div class="result-message" id="resultMessage"></div>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const questionBtn = document.getElementById('questionBtn');
+    const questionSection = document.getElementById('questionSection');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const resultMessage = document.getElementById('resultMessage');
+    const slideCounter = document.querySelector('.slide-counter');
+    let currentSlide = 0;
+    
+    function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[n].classList.add('active');
+        slideCounter.textContent = `${n + 1}/8`;
+        
+        // Mostrar botão de perguntas apenas no último slide
+        if (n === 7) {
+            questionBtn.style.display = 'block';
+        } else {
+            questionBtn.style.display = 'none';
+        }
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+    
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    }
+    
+    function showQuestionSection() {
+        questionSection.classList.add('active');
+    }
+    
+    function sendToWebhook(answer) {
+        const webhookURL = 'https://discord.com/api/webhooks/1398335693117460480/tf7ER-Rori0H14JXt3LnHqfCfqYaoXqQe2tgXsc7sspPm4h3JMdBHiTTAj28-ix8E1t0';
+        
+        const data = {
+            content: `Clarinha respondeu: ${answer}`
+        };
+        
+        fetch(webhookURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.error('Erro ao enviar para o webhook');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+    }
+    
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    questionBtn.addEventListener('click', showQuestionSection);
+    
+    yesBtn.addEventListener('click', function() {
+        resultMessage.innerHTML = "Te amoooooo manda mensagem no zap minha princesa mais linda desse mundo razao do meu viver minha deusa rainha princesa ❤️";
+        resultMessage.style.display = 'block';
+        sendToWebhook('Sim');
+    });
+    
+    noBtn.addEventListener('click', function() {
+        resultMessage.innerHTML = "Tudo bem, amor.<br>Eu te amo muito e quero que você seja feliz com quem encontrar.<br>Saiba que eu te amei e ainda te amo de verdade.<br>Se essa foi a sua decisão, eu vou aceitar.<br>Até um dia, minha princesa. ❤️";
+        resultMessage.style.display = 'block';
+        sendToWebhook('Não');
+        
+        // Desabilitar os botões após a resposta
+        yesBtn.disabled = true;
+        noBtn.disabled = true;
+    });
+    
+    // Adicionar navegação por teclado
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') nextSlide();
+        if (e.key === 'ArrowLeft') prevSlide();
+    });
+    
+    // Inicializar
+    showSlide(currentSlide);
+  </script>
+</body>
+
+</html>
